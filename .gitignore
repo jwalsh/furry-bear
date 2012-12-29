@@ -1,3 +1,5 @@
 target
 resources
 out
+.lein-cljsbuild-*
+.lein-failures
