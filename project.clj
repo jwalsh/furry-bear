@@ -1,8 +1,27 @@
 (defproject furry-bear "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "ClojureScript and Heroku"
+  :url "http://wal.sh/#furry-bear"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :source-paths ["src/clj"]
   :dependencies [[org.clojure/clojure "1.4.0"]
+                 [compojure "1.0.4"]
+                 [hiccup "1.0.0"]
+                 [clojure-complete "0.2.2"]
                  [cascalog "1.10.0"]]
-  :dev-dependencies [[org.apache.hadoop/hadoop-core "0.20.2-dev"]])
+  :plugins [[lein-cljsbuild "0.2.9"]
+            [lein-ring "0.7.0"]]
+  :hooks [leiningen.cljsbuild]
+  :cljsbuild {
+              :builds [
+                       {:source-path "src/cljs"
+                        :compiler {:output-to "resources/public/js/main.js"
+                                   :optimizations :whitespace
+                                   :pretty-print true}}
+                       {:source-path "src/cljs"
+                        :compiler {:output-to "resources/public/js/main.min.js"
+                                   :pretty-print true}}]}
+  :ring {:handler furry-bear.routes/app}
+  :source-path "src/clj"; for Leiningen 1.x:
+  :dev-dependencies [[lein-ring "0.7.0"]])
+               
