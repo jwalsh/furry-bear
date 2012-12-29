@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :source-paths ["src/clj"]
   :dependencies [[org.clojure/clojure "1.4.0"]
+                 [ring/ring-jetty-adapter "1.1.0"]
                  [compojure "1.0.4"]
                  [hiccup "1.0.0"]
                  [clojure-complete "0.2.2"]
