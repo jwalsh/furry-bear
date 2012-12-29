@@ -22,6 +22,5 @@
                         :compiler {:output-to "resources/public/js/main.min.js"
                                    :pretty-print true}}]}
   :ring {:handler furry-bear.routes/app}
-  :source-path "src/clj"; for Leiningen 1.x:
-  :dev-dependencies [[lein-ring "0.7.0"]])
+  :min-lein-version "2.0.0")
                
