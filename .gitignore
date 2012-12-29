@@ -1,5 +1,8 @@
-target
-resources
-out
-.lein-cljsbuild-*
-.lein-failures
+/target
+/pom.xml
+/.lein-*
+/.env
+/resources
+/out
+/.lein-cljsbuild-*
+/.lein-failures

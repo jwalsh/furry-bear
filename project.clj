@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :source-paths ["src/clj"]
   :dependencies [[org.clojure/clojure "1.4.0"]
+                 [ring/ring-jetty-adapter "1.1.0"]
                  [compojure "1.0.4"]
                  [hiccup "1.0.0"]
                  [clojure-complete "0.2.2"]
@@ -22,6 +23,5 @@
                         :compiler {:output-to "resources/public/js/main.min.js"
                                    :pretty-print true}}]}
   :ring {:handler furry-bear.routes/app}
-  :source-path "src/clj"; for Leiningen 1.x:
-  :dev-dependencies [[lein-ring "0.7.0"]])
+  :min-lein-version "2.0.0")
                
