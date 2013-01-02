@@ -20,14 +20,14 @@
     [:link {:rel "stylesheet" :href "http://wal.sh/static/resume.css"}]
     [:meta {:http-equiv "Content-type"
             :content "text/html; charset=utf-8"}]
-    [:title "Add Numbers"]]
+    [:title (str shared/make-example-text ": " title)]]
    (run-clojurescript
     "/js/main.js" "")
    [:body content]))
 
 (defn index-page []
   (prelude-and-coda
-   (shared/make-furry-bear-text)
+   (str shared/make-furry-bear-text)
    [:div
     [:h1 "Features"]
     [:div#content.text
@@ -39,13 +39,14 @@
     [:p     (let [data {"E", 5}]
       [:p (str data "...")])]
     (let [width 500, bar-height 20
-          data {"A" 1, "B" 2, "C" 4, "D" 3}
+          data {"A" 10, "B" 1, "C" 11, "D" 20}
           s (scale/linear :domain [0 (apply max (vals data))]
                           :range [0 width])]
       [:div#bars
-       (unify data (fn [[label val]]
-                     [:div.bars-row {:style (str "background-color: gray; width: " (s val) "px")}
-                      [:span {:style {:color "white"}}  label]]))])]))
+       (unify data
+              (fn [[label val]]
+                [:div.bars-row {:style (str "background-color: gray; width: " (s val) "px")}
+                 [:span {:style {:color "white"}}  label]]))])]))
 
 (defn view-input []
   (let [title "add numbers"]
