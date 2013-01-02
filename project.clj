@@ -5,10 +5,11 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :source-paths ["src/clj"]
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [ring/ring-jetty-adapter "1.1.0"]
+                 [com.keminglabs/c2 "0.2.1"]
+                 [clojure-complete "0.2.2"]
                  [compojure "1.0.4"]
                  [hiccup "1.0.0"]
-                 [clojure-complete "0.2.2"]
+                 [ring/ring-jetty-adapter "1.1.0"]
                  [cascalog "1.10.0"]]
   :plugins [[lein-cljsbuild "0.2.9"]
             [lein-ring "0.7.0"]]

@@ -9,6 +9,10 @@
 (defroutes main-routes
   (GET "/" [] (index-page))
   (GET "/repl-demo" [] (repl-demo-page))
+  (GET "/add-nums" [] (view-input))
+  (POST "/add-nums" [a b]
+        (let [a b]
+          (view-output a b)))
   (route/resources "/")
   (route/not-found "Page not found"))
 
