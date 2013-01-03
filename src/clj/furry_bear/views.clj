@@ -21,8 +21,7 @@
     [:meta {:http-equiv "Content-type"
             :content "text/html; charset=utf-8"}]
     [:title (str shared/make-example-text ": " title)]]
-   (run-clojurescript
-    "/js/main.js" "")
+   (include-js "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
    [:body content]))
 
 (defn index-page []
@@ -35,6 +34,11 @@
       [:li "Login"]
       [:li "Task entry"]
       [:li "Shared events"]]]
+    [:h1 "Angular"]
+    [:div
+     [:label "Name"]
+     [:input {:type "text" :ng-model "yourName" :placeholder "Enter a name here"}]
+     [:h1 "Hello {{yourName}}!"]]
     [:h1 (shared/make-furry-bear-text)]
     [:p     (let [data {"E", 5}]
       [:p (str data "...")])]
