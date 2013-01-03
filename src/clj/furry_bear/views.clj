@@ -1,6 +1,8 @@
 (ns furry-bear.views
+  (:use [c2.core :only [unify]])
   (:require
    [furry-bear.crossover.shared :as shared]
+   [c2.scale :as scale]
    [hiccup
     [page :refer [html5]]
     [element :refer [javascript-tag]]
@@ -12,22 +14,68 @@
    (include-js path)
    (javascript-tag init)))
 
-(defn index-page []
+(defn prelude-and-coda [title & content]
   (html5
    [:head
     [:link {:rel "stylesheet" :href "http://wal.sh/static/resume.css"}]
-    [:title (shared/make-furry-bear-text)] ]
-   [:body
+    [:meta {:http-equiv "Content-type"
+            :content "text/html; charset=utf-8"}]
+    [:title (str shared/make-example-text ": " title)]]
+   (include-js "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
+   [:body content]))
+
+(defn index-page []
+  (prelude-and-coda
+   (str shared/make-furry-bear-text)
+   [:div
     [:h1 "Features"]
-    [:div
+    [:div#content.text
      [:ul
       [:li "Login"]
       [:li "Task entry"]
       [:li "Shared events"]]]
+    [:h1 "Angular"]
+    [:div
+     [:label "Name"]
+     [:input {:type "text" :ng-model "yourName" :placeholder "Enter a name here"}]
+     [:h1 "Hello {{yourName}}!"]]
     [:h1 (shared/make-furry-bear-text)]
-    (run-clojurescript
-     "/js/main.js"
-     "furry-bear.app.greet(window.navigator.userAgent)")]))
+    [:p     (let [data {"E", 5}]
+      [:p (str data "...")])]
+    (let [width 500, bar-height 20
+          data {"A" 10, "B" 1, "C" 11, "D" 20}
+          s (scale/linear :domain [0 (apply max (vals data))]
+                          :range [0 width])]
+      [:div#bars
+       (unify data
+              (fn [[label val]]
+                [:div.bars-row {:style (str "background-color: gray; width: " (s val) "px")}
+                 [:span {:style {:color "white"}}  label]]))])]))
+
+(defn view-input []
+  (let [title "add numbers"]
+    (prelude-and-coda
+     title
+     [:h2 title]
+     [:form {:method "post" :action ""}
+      [:input.math {:type "text" :name "a"}] [:span.math " + "]
+      [:input.math {:type "text" :name "b"}] [:br]
+      [:input.action {:type "submit" :value "add"}]])))
+
+(defn view-output
+  ([]
+     (let [title "No data"]
+       (prelude-and-coda
+        title
+        [:h2 "No data seen"])))
+  ([a b]
+     (let [title "Added"]
+       (prelude-and-coda
+        title
+        [:h2 "Added"]
+        [:p
+         (str a " + " b " = "
+              (+ (Integer/parseInt a) (Integer/parseInt b)))]))))
 
 (defn repl-demo-page []
   (html5

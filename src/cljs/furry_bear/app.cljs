@@ -11,4 +11,5 @@
 (defn ^:export bye [n]
   (str "Bye " n))
 
-(js/alert (greet "ClojureScript"))
+;; (js/alert (greet "ClojureScript"))
+
