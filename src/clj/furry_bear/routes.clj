@@ -13,6 +13,10 @@
   (POST "/add-nums" [a b]
         (let [a b]
           (view-output a b)))
+  ;; REST 
+  (GET "/status" [] (json-response {"running" "true" "notes" [1 2 3 4 5 6 7]}))
+  
+  ;; Defaulting 
   (route/resources "/")
   (route/not-found "Page not found"))
 

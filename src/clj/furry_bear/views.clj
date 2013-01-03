@@ -3,6 +3,7 @@
   (:require
    [furry-bear.crossover.shared :as shared]
    [c2.scale :as scale]
+   [clj-json.core :as json]
    [hiccup
     [page :refer [html5]]
     [element :refer [javascript-tag]]
@@ -104,3 +105,9 @@ lein trampoline cljsbuild repl-listen"]
    (run-clojurescript
     "/js/main-debug.js"
     "furry-bear.repl.connect()")))
+
+
+(defn json-response [data & status]
+  {:status (or status 200)
+   :headers {"Content-Type" "application/json"}
+   :body (json/generate-string data)})
