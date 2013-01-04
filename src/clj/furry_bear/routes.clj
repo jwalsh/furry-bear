@@ -11,11 +11,13 @@
   (GET "/repl-demo" [] (repl-demo-page))
   (GET "/add-nums" [] (view-input))
   (POST "/add-nums" [a b]
-        (let [a b]
-          (view-output a b)))
+        (view-output a b))
   ;; REST 
   (GET "/status" [] (json-response {"running" "true" "notes" [1 2 3 4 5 6 7]}))
-  
+  (GET "/site" []
+       (get-site))
+  (POST "/site" [s]
+        (post-site s))
   ;; Defaulting 
   (route/resources "/")
   (route/not-found "Page not found"))

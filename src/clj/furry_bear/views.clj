@@ -4,6 +4,7 @@
    [furry-bear.crossover.shared :as shared]
    [c2.scale :as scale]
    [clj-json.core :as json]
+   [clj-http.client :as client]
    [hiccup
     [page :refer [html5]]
     [element :refer [javascript-tag]]
@@ -25,13 +26,19 @@
    (include-js "http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js")
    [:body content]))
 
+
+
 (defn index-page []
   (prelude-and-coda
    (str shared/make-furry-bear-text)
+   (str (json/parse-string (:body (client/get "https://graph.facebook.com/jwalsh.sandbox"))))
+   ;; (comment (:trace-redirects (client/get "http://wal.sh/")))
    [:div
     [:h1 "Features"]
     [:div#content.text
      [:ul
+      [:li (:trace-redirects (client/get "http://wal.sh/"))]
+      [:li (client/get "https://graph.facebook.com/btaylor")]
       [:li "Login"]
       [:li "Task entry"]
       [:li "Shared events"]]]
@@ -51,7 +58,8 @@
        (unify data
               (fn [[label val]]
                 [:div.bars-row {:style (str "background-color: gray; width: " (s val) "px")}
-                 [:span {:style {:color "white"}}  label]]))])]))
+                 [:span {:style {:color "white"}}  label]]))])
+    [:div]]))
 
 (defn view-input []
   (let [title "add numbers"]
@@ -77,6 +85,22 @@
         [:p
          (str a " + " b " = "
               (+ (Integer/parseInt a) (Integer/parseInt b)))]))))
+
+;; TODO: GET for the initial s param; POST for site
+;; Purpose: Provide a JSON representation of the HTML of a site
+(defn get-site []
+  (prelude-and-coda
+   "Site"
+   [:form {:method "POST"}
+    [:label "Site"]
+    [:input {:type "text" :ng-model "site" :name "s" :placeholder "Enter a site here"}]
+    [:input {:type "submit"}]]))
+
+
+(defn post-site [s]
+  (prelude-and-coda
+   (:body 
+    (client/get s))))
 
 (defn repl-demo-page []
   (html5
@@ -105,6 +129,9 @@ lein trampoline cljsbuild repl-listen"]
    (run-clojurescript
     "/js/main-debug.js"
     "furry-bear.repl.connect()")))
+
+;; Proxying requests
+;; [clj-http "0.6.3"]
 
 
 (defn json-response [data & status]
