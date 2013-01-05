@@ -11,6 +11,7 @@
                  [clojure-complete "0.2.2"]
                  [com.keminglabs/c2 "0.2.1"]
                  [compojure "1.0.4"]
+                 [dieter "0.3.0"]
                  [hiccup "1.0.0"]
                  [clj-json "0.5.1"]
                  [enlive "1.0.1"]
