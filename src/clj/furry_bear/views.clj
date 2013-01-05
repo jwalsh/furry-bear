@@ -49,7 +49,7 @@
      [:h1 "Hello {{yourName}}!"]]
     [:h1 (shared/make-furry-bear-text)]
     [:p     (let [data {"E", 5}]
-      [:p (str data "...")])]
+              [:p (str data "...")])]
     (let [width 500, bar-height 20
           data {"A" 10, "B" 1, "C" 11, "D" 20}
           s (scale/linear :domain [0 (apply max (vals data))]
@@ -138,3 +138,12 @@ lein trampoline cljsbuild repl-listen"]
   {:status (or status 200)
    :headers {"Content-Type" "application/json"}
    :body (json/generate-string data)})
+
+;; https://github.com/brentonashworth/sandbar 
+(def security-policy
+  [#"/admin.*"                   :admin 
+   #"/permission-denied.*"       :any
+   #"/login.*"                   :any 
+   #".*\.(css|js|png|jpg|gif)$"  :any 
+   #".*"                         #{:admin :user}])
+
