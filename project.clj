@@ -11,7 +11,7 @@
                  [clojure-complete "0.2.2"]
                  [cascalog "1.10.0"]]
   :plugins [[lein-cljsbuild "0.2.9"]
-            [lein-ring "0.7.0"]]
+            [lein-ring "0.8.2"]]
   :hooks [leiningen.cljsbuild]
   :cljsbuild {
               :builds [
