@@ -2,6 +2,14 @@
   (:require;*CLJSBUILD-REMOVE*;-macros
     [furry-bear.crossover.macros :as macros]))
 
+(defn make-site-text []
+  (fn []
+    "furry-bear"))
+
+(defn make-example-text []
+  (fn []
+    "furry-bear"))
+
 (defn make-furry-bear-text []
   (macros/reverse-eval
-    ("code" "shared " "from the " "Hello " str)))
+   ("shared"  "crossover" "furry-bear" str)))
